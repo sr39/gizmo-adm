@@ -1,3 +1,9 @@
+This directory is my attempt at modifying the cosmological/astrophysical simulation software GIZMO to incorporate the dynamics of self-interacting dark matter (focusing specically on dissipative DM). This README file will be updated with the details of the changes as they are made. The original GIZMO README is pasted below as it has the general details of the simulation software and the necessary resources. 
+
+==================================
+==================================
+
+
 Welcome!
 
 This is **GIZMO**: a flexible, multi-method multi-physics code. The code solves the fluid using Lagrangian mesh-free finite-volume Godunov methods (or SPH, or fixed-grid Eulerian methods), and self-gravity with fast hybrid PM-Tree methods and fully-adaptive resolution. Other physics include: magnetic fields (ideal and non-ideal), radiation-hydrodynamics, anisotropic conduction and viscosity, sub-grid turbulent diffusion, radiative cooling, cosmological integration, sink particles, dust-gas mixtures, cosmic rays, degenerate equations of state, galaxy/star/black hole formation and feedback, self-interacting and scalar-field dark matter, on-the-fly structure finding, and more. 
