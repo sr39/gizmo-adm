@@ -5,8 +5,8 @@
 # a new system.
 #
 #############
-
-SYSTYPE="Frontera"
+SYSTYPE="Della"
+#SYSTYPE="Frontera"
 #SYSTYPE="Stampede2"
 #SYSTYPE="Wheeler"
 #SYSTYPE="MacBookPro"

@@ -41,7 +41,7 @@ void add_analytic_gravitational_forces()
     //GravAccel_KeplerianOrbit();         // keplerian disk (2D or 3D)
     //GravAccel_KeplerianTestProblem();   // keplerian disk with special boundaries for test problem
     //GravAccel_GrowingDiskPotential();   // time-dependent (adiabatically growing) disk
-    //GravAccel_StaticNFW();              // NFW profile sphere
+    GravAccel_StaticNFW();              // NFW profile sphere
     //GravAccel_PaczynskyWiita();         // Paczynsky-Wiita pseudo-Newtonian potential
 #endif
 
@@ -291,7 +291,7 @@ void GravAccel_KeplerianTestProblem()
 /* static NFW potential (parameters set below) */
 void GravAccel_StaticNFW()
 {
-    double NFW_M200=100, NFW_C=10; /* NFW mass inside R200 (in code units), and concentration =R200/Rs */
+    double NFW_M200=100, NFW_C=13; /* NFW mass inside R200 (in code units), and concentration =R200/Rs */
     double R200 = pow(NFW_M200*All.G/(100.*All.Hubble_H0_CodeUnits*All.Hubble_H0_CodeUnits), 1./3.), Rs=R200/NFW_C; /* using R200 = R where mean density = 200x critical density, and Rs=R200/c200 */
     int i,k; for(i = FirstActiveParticle; i >= 0; i = NextActiveParticle[i])
     {

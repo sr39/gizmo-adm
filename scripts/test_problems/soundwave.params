@@ -10,9 +10,9 @@
 %        INPUT_IN_DOUBLEPRECISION
 %        OUTPUT_IN_DOUBLEPRECISION 
 %
-InitCondFile                       soundwave_ics
+InitCondFile                       /home/sr39/gizmo-public/scripts/test_problems/soundwave_ics
 ICFormat                           3
-OutputDir                          output
+OutputDir                          /home/sr39/gizmo-public/scripts/test_problems/output
 TimeLimitCPU                       50000
 MaxMemSize                         1600
 PartAllocFactor                    5

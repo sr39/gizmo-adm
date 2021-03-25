@@ -31,8 +31,8 @@
 % 
 
 %----  Relevant files
-InitCondFile   isodisk_ics
-OutputDir      output
+InitCondFile   /home/sr39/gizmo-public/scripts/test_problems/isodisk_ics
+OutputDir      /home/sr39/gizmo-public/scripts/test_problems/output_isodisk
 
 %---- File formats 
 ICFormat    3  % 1=binary, 3=hdf5, 4=cluster 
@@ -48,7 +48,7 @@ NumFilesWrittenInParallel   1  % must be < N_processors & power of 2
 
 %---- Output frequency 
 TimeOfFirstSnapshot     0.0
-TimeBetSnapshot         0.01 
+TimeBetSnapshot         0.02 
 
 %---- CPU-time limits 
 TimeLimitCPU            50000  % in seconds 
@@ -71,7 +71,7 @@ OmegaBaryon             0       % =0 for non-cosmological
 HubbleParam             1       % little 'h'; =1 for non-cosmological runs
 
 %---- Accuracy of time integration 
-MaxSizeTimestep         0.005   % in code units, set for your problem
+MaxSizeTimestep         0.01   % in code units, set for your problem
 
 %---- Tree algorithm, force accuracy, domain update frequency 
 TreeDomainUpdateFrequency   0.1	% 0.0005-0.05, dept on core+particle number  

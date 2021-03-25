@@ -8,9 +8,9 @@
 %        SELFGRAVITY_OFF 
 %        EOS_GAMMA=(1.4)
 %
-InitCondFile                       square_ics
+InitCondFile                       /home/sr39/gizmo-public/scripts/test_problems/square_ics
 ICFormat                           3
-OutputDir                          output
+OutputDir                          /home/sr39/gizmo-public/scripts/test_problems/output
 TimeLimitCPU                       50000
 MaxMemSize                         1600
 PartAllocFactor                    5

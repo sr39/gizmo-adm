@@ -1,0 +1,22 @@
+s is the current 'default' UV background table from 
+##  Faucher-Giguere, 2020, MNRAS, 493, 2, 1614
+##  'A cosmic UV/X-ray background model update', 
+##  Appropriately modified following Onorbe et al., 2017, ApJ, 837, 2, 106, 
+##  to reionize at the 'correct' target redshift [this owes to a difference in how the 
+##  analytic models like Faucher-Giguere et al. treat the neutral fraction in the model, 
+##  versus how in the simulations with a TREECOOL file the reionization background is 
+##  applied -everywhere- uniformly, which can inadvertently lead to earlier reionization
+##  than intended]. This also includes the updated contribution from AGN 
+##  from Shen et al., 2020, arXiv:2001.02696, 
+##    'The Bolometric Quasar Luminosity Function at z = 0-7'
+##  If you wish to use this, delete these lines (pre-ceded by '##') and rename
+##  the file simply TREECOOL, then include it in your run-time directory with the 
+##  compiled GIZMO binary. 
+##
+## columns here are [see e.g. Fig 10 in Faucher-Giguere, 2020, MNRAS, 493, 2, 1614]:
+##  (1) redshift: log_10(1+z)
+##  (2) HI photoionization rate: Gamma_HI in s^-1
+##  (3) HeI photoionization rate: Gamma_HeI in s^-1
+##  (4) HeII photoionization rate: Gamma_HeII in s^-1
+##  (5) HI photoheating rate: \dot{q}_HI in erg/s
+##  (6) HeI photoheating rate:
