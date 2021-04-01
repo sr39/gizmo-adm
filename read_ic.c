@@ -295,6 +295,11 @@ void empty_read_buffer(enum iofields blocknr, int offset, int pc, int type)
 #endif
             break;
 
+	case IO_ADM:		/* adm type */
+#ifdef ADM
+	    for (n=0; n < pc; n++) {SphP[offset + n].adm = *ip_int++;}
+#endif 
+	    break;
 
         case IO_HSML:		/* gas kernel length */
             for(n = 0; n < pc; n++) {PPP[offset + n].Hsml = *fp++;}
@@ -824,6 +829,9 @@ void read_file(char *fname, int readTask, int lastTask)
 #endif
 #if defined(BH_GRAVCAPTURE_FIXEDSINKRADIUS)
                    && blocknr != IO_SINKRAD
+#endif
+#ifdef ADM
+                   && blocknr != IO_ADM
 #endif
 #ifdef PIC_MHD
                    && blocknr != IO_GRAINTYPE

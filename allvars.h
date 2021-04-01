@@ -2483,6 +2483,9 @@ extern struct sph_particle_data
 #endif
 
 
+#ifdef ADM
+    int adm;/*!< adm particle type */
+#endif
 #ifdef SUPER_TIMESTEP_DIFFUSION
     MyDouble Super_Timestep_Dt_Explicit; /*!< records the explicit step being used to scale the sub-steps for the super-stepping */
     int Super_Timestep_j; /*!< records which sub-step if the super-stepping cycle the particle is in [needed for adaptive steps] */
@@ -2998,6 +3001,7 @@ enum iofields
   IO_GENERATION_ID,
   IO_MASS,
   IO_U,
+  IO_ADM,
   IO_RHO,
   IO_NE,
   IO_NH,
