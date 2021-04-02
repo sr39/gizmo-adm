@@ -122,6 +122,7 @@ def make_IC():
     h.attrs['HubbleParam'] = 1.0; # z=0 hubble parameter (small 'h'=H/100 km/s/Mpc)
     h.attrs['Flag_Sfr'] = 0; # flag indicating whether star formation is on or off
     h.attrs['Flag_Cooling'] = 0; # flag indicating whether cooling is on or off
+    h.attrs['Flag_ADM'] = 0; # flag indicating whether ADM physics is enabled or not
     h.attrs['Flag_StellarAge'] = 0; # flag indicating whether stellar ages are to be saved
     h.attrs['Flag_Metals'] = 0; # flag indicating whether metallicity are to be saved
     h.attrs['Flag_Feedback'] = 0; # flag indicating whether some parts of springel-hernquist model are active

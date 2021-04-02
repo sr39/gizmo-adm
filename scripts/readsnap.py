@@ -129,6 +129,7 @@ def readsnap(sdir,snum,ptype,
     flag_feedbacktp = header_toparse["Flag_Feedback"]
     npartTotal = header_toparse["NumPart_Total"]
     flag_cooling = header_toparse["Flag_Cooling"]
+    flag_adm = header_toparse["Flag_ADM"]
     numfiles = header_toparse["NumFilesPerSnapshot"]
     boxsize = header_toparse["BoxSize"]
     omega_matter = header_toparse["Omega0"]
@@ -169,6 +170,8 @@ def readsnap(sdir,snum,ptype,
         #if (flag_sfr>0): 
         sfr=np.copy(mass)
         metal=np.copy(mass)
+        #if (flag_adm>0): 
+        adm_type=np.copy(mass)
     if (ptype == 0 or ptype == 4) and (flag_metals > 0):
         metal=np.zeros([npartTotal[ptype],flag_metals],dtype=np.float64)
     if (ptype == 4) and (flag_sfr > 0) and (flag_stellarage > 0):
@@ -213,7 +216,11 @@ def readsnap(sdir,snum,ptype,
                 hsml[nL:nR]=input_struct[bname+"SmoothingLength"]
                 if (flag_cooling > 0): 
                     nume[nL:nR]=input_struct[bname+"ElectronAbundance"]
+                if (flag_cooling > 0):
+                    nume[nL:nR]=input_struct[bname+"ElectronAbundance"]
                     numh[nL:nR]=input_struct[bname+"NeutralHydrogenAbundance"]
+                if (flag_adm > 0):
+                    adm_type[nL:nR]=input_struct[bname+"ADMType"]
                 if (flag_sfr > 0):
                     sfr[nL:nR]=input_struct[bname+"StarFormationRate"]
             if (ptype == 0 or ptype == 4) and (flag_metals > 0):

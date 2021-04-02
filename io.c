@@ -3474,9 +3474,14 @@ void write_file(char *fname, int writeTask, int lastTask)
     header.flag_stellarage = 0;
     header.flag_metals = 0;
     header.flag_agetracers = 0;
+    header.flag_adm = 0;
 
 #ifdef COOLING
     header.flag_cooling = 1;
+#endif
+
+#ifdef ADM
+    header.flag_adm = 1;
 #endif
 
 #ifdef GALSF
@@ -3932,6 +3937,12 @@ void write_header_attributes_in_hdf5(hid_t handle)
     hdf5_dataspace = H5Screate(H5S_SCALAR);
     hdf5_attribute = H5Acreate(handle, "Flag_Sfr", H5T_NATIVE_INT, hdf5_dataspace, H5P_DEFAULT);
     H5Awrite(hdf5_attribute, H5T_NATIVE_INT, &header.flag_sfr);
+    H5Aclose(hdf5_attribute);
+    H5Sclose(hdf5_dataspace);
+
+    hdf5_dataspace = H5Screate(H5S_SCALAR);
+    hdf5_attribute = H5Acreate(handle, "Flag_ADM", H5T_NATIVE_INT, hdf5_dataspace, H5P_DEFAULT);
+    H5Awrite(hdf5_attribute, H5T_NATIVE_INT, &header.flag_adm);
     H5Aclose(hdf5_attribute);
     H5Sclose(hdf5_dataspace);
 

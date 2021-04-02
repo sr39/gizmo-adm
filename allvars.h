@@ -2954,6 +2954,7 @@ extern struct io_header
   double time;			    /*!< time of snapshot file */
   double redshift;		    /*!< redshift of snapshot file */
   int flag_sfr;			    /*!< flags whether the simulation was including star formation */
+  int flag_adm;			    /*!< flags whether ADM physics was enabled*/
   int flag_feedback;		/*!< flags whether feedback was included (obsolete) */
   unsigned int npartTotal[6];   /*!< total number of particles of each type in this snapshot. This can be different from npart if one is dealing with a multi-file snapshot. */
   int flag_cooling;		    /*!< flags whether cooling was included  */
