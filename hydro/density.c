@@ -100,6 +100,9 @@ static struct INPUT_STRUCT_NAME
 #endif
   MyFloat Vel[3];
   MyFloat Hsml;
+#if defined(ADM)
+  int adm;
+#endif
 #ifdef GALSF_SUBGRID_WINDS
   MyFloat DelayTime;
 #endif
@@ -120,6 +123,9 @@ void hydrokerneldensity_particle2in(struct INPUT_STRUCT_NAME *in, int i, int loo
     {
 #if defined(SPHAV_CD10_VISCOSITY_SWITCH)
         for(k=0;k<3;k++) {in->Accel[k] = All.cf_a2inv*P[i].GravAccel[k] + SphP[i].HydroAccel[k];} // PHYSICAL units //
+#endif
+#ifdef ADM
+        in->adm = SphP[i].adm;
 #endif
 #ifdef GALSF_SUBGRID_WINDS
         in->DelayTime = SphP[i].DelayTime;
@@ -276,7 +282,11 @@ int density_evaluate(int target, int mode, int *exportflag, int *exportnodecount
     if(mode == 0) {startnode = All.MaxPart; /* root node */} else {startnode = DATAGET_NAME[target].NodeList[0]; startnode = Nodes[startnode].u.d.nextnode;    /* open it */}
     while(startnode >= 0) {
         while(startnode >= 0) {
+#ifdef ADM
+	    numngb_inbox = ngb_treefind_variable_threads_adm(local.Pos, local.adm, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
             numngb_inbox = ngb_treefind_variable_threads(local.Pos, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             if(numngb_inbox < 0) return -1;
             for(n = 0; n < numngb_inbox; n++)
             {
@@ -1071,11 +1081,29 @@ void density(void)
 #include "../system/code_block_xchange_initialize.h" /* pre-define all the ALL_CAPS variables we will use below, so their naming conventions are consistent and they compile together, as well as defining some of the function calls needed */
 
 /* define structures to use below */
-struct INPUT_STRUCT_NAME {MyDouble Pos[3], Hsml, Volume_0; int NodeList[NODELISTLENGTH];} *DATAIN_NAME, *DATAGET_NAME;
+struct INPUT_STRUCT_NAME 
+{
+  MyDouble  Pos[3];
+  MyDouble  Hsml;
+  MyDouble  Volume_0; 
+  int NodeList[NODELISTLENGTH];
+#ifdef ADM
+  int adm;
+#endif
+}
+ *DATAIN_NAME, *DATAGET_NAME;
 
 /* define properties to be sent to nodes */
 void particle2in_cellcorrections(struct INPUT_STRUCT_NAME *in, int i, int loop_iteration)
-{in->Volume_0=SphP[i].Volume_0; in->Hsml=PPP[i].Hsml; int k; for(k=0;k<3;k++) {in->Pos[k]=P[i].Pos[k];}}
+{
+  in->Volume_0=SphP[i].Volume_0; 
+  in->Hsml=PPP[i].Hsml; 
+  int k; 
+  for(k=0;k<3;k++) {in->Pos[k]=P[i].Pos[k];}
+#ifdef ADM
+  in->adm=SphP[i].adm
+#endif
+}
 
 /* define output structure to use below */
 struct OUTPUT_STRUCT_NAME {MyFloat Volume_1;} *DATARESULT_NAME, *DATAOUT_NAME;
@@ -1092,7 +1120,11 @@ int cellcorrections_evaluate(int target, int mode, int *exportflag, int *exportn
     if(mode == 0) {startnode = All.MaxPart; /* root node */} else {startnode = DATAGET_NAME[target].NodeList[0]; startnode = Nodes[startnode].u.d.nextnode; /* open it */} /* start usual neighbor tree search */
     while(startnode >= 0) {
         while(startnode >= 0) {
+#ifdef ADM
+	    numngb_inbox = ngb_treefind_pairs_threads_adm(local.Pos, local.adm, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
             numngb_inbox = ngb_treefind_pairs_threads(local.Pos, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             if(numngb_inbox < 0) {return -1;}
             for(n=0; n<numngb_inbox; n++)
             {

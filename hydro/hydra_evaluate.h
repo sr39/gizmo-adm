@@ -140,7 +140,11 @@ int hydro_force_evaluate(int target, int mode, int *exportflag, int *exportnodec
             /* --------------------------------------------------------------------------------- */
             /* get the neighbor list */
             /* --------------------------------------------------------------------------------- */
+#ifdef ADM
+	    numngb = ngb_treefind_pairs_threads_adm(local.Pos, local.adm, kernel.h_i, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
             numngb = ngb_treefind_pairs_threads(local.Pos, kernel.h_i, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             if(numngb < 0) return -1;
 
             for(n = 0; n < numngb; n++)

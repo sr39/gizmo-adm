@@ -103,13 +103,17 @@ void ngb_treefind_flagexport(MyDouble searchcenter[3], MyFloat hguess);
 
 
 int ngb_treefind_pairs_threads(MyDouble searchcenter[3], MyFloat hsml, int target, int *startnode,
-		       int mode, int *exportflag, int *exportnodecount, int *exportindex, int *ngblist);		       
+		       int mode, int *exportflag, int *exportnodecount, int *exportindex, int *ngblist);
+int ngb_treefind_pairs_threads_adm(MyDouble searchcenter[3], int adm_type, MyFloat hsml, int target, int *startnode,
+                       int mode, int *exportflag, int *exportnodecount, int *exportindex, int *ngblist);		       
 int ngb_treefind_variable_targeted(MyDouble searchcenter[3], MyFloat hsml, int target, int *startnode, int mode,
  			  int *nexport, int *nsend_local, int TARGET_BITMASK);
 int ngb_treefind_pairs_targeted(MyDouble searchcenter[3], MyFloat hsml, int target, int *startnode, int mode,
                                    int *nexport, int *nsend_local, int TARGET_BITMASK);
 int ngb_treefind_variable_threads(MyDouble searchcenter[3], MyFloat hsml, int target, int *startnode, int mode,
 			  int *exportflag, int *exportnodecount, int *exportindex, int *ngblist);
+int ngb_treefind_variable_threads_adm(MyDouble searchcenter[3], int adm_type, MyFloat hsml, int target, int *startnode, int mode,
+                          int *exportflag, int *exportnodecount, int *exportindex, int *ngblist);
 
 #endif
 

@@ -124,6 +124,9 @@ struct GasGraddata_in
 #endif
 #endif
     int NodeList[NODELISTLENGTH];
+#ifdef ADM
+    int adm;
+#endif
 #ifdef SPHAV_CD10_VISCOSITY_SWITCH
     MyFloat NV_DivVel;
 #endif
@@ -251,6 +254,9 @@ static inline void particle2in_GasGrad(struct GasGraddata_in *in, int i, int gra
 #ifdef GALSF_SUBGRID_WINDS
     in->DelayTime = SphP[i].DelayTime;
 #endif
+#endif
+#ifdef ADM
+    in->adm = SphP[i].adm;
 #endif
 
     if(SHOULD_I_USE_SPH_GRADIENTS(SphP[i].ConditionNumber)) {in->Mass *= -1;}
@@ -1739,12 +1745,20 @@ int GasGrad_evaluate(int target, int mode, int *exportflag, int *exportnodecount
         {
 #ifdef TURB_DIFF_DYNAMIC
             if (gradient_iteration == 0) {
+#ifdef ADM
+		numngb = ngb_treefind_pairs_threads_adm(local.Pos, local.adm, All.TurbDynamicDiffFac * kernel.h_i, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
                 numngb = ngb_treefind_pairs_threads(local.Pos, All.TurbDynamicDiffFac * kernel.h_i, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             }
             else
 #endif
             {
+#ifdef ADM
+		numngb = ngb_treefind_pairs_threads_adm(local.Pos, local.adm, kernel.h_i, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
                 numngb = ngb_treefind_pairs_threads(local.Pos, kernel.h_i, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             }
 
             if(numngb < 0) {return -1;}
