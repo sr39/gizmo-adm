@@ -393,7 +393,7 @@ static inline void particle2in_hydra(struct INPUT_STRUCT_NAME *in, int i, int lo
 #endif
 
 #ifdef ADM
-    in->adm = SphP[i].adm;
+    in->adm = P[i].adm;
 #endif
 #ifdef HYDRO_PRESSURE_SPH
     in->EgyWtRho = SphP[i].EgyWtDensity;

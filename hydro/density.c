@@ -125,7 +125,7 @@ void hydrokerneldensity_particle2in(struct INPUT_STRUCT_NAME *in, int i, int loo
         for(k=0;k<3;k++) {in->Accel[k] = All.cf_a2inv*P[i].GravAccel[k] + SphP[i].HydroAccel[k];} // PHYSICAL units //
 #endif
 #ifdef ADM
-        in->adm = SphP[i].adm;
+        in->adm = P[i].adm;
 #endif
 #ifdef GALSF_SUBGRID_WINDS
         in->DelayTime = SphP[i].DelayTime;
@@ -1101,7 +1101,7 @@ void particle2in_cellcorrections(struct INPUT_STRUCT_NAME *in, int i, int loop_i
   int k; 
   for(k=0;k<3;k++) {in->Pos[k]=P[i].Pos[k];}
 #ifdef ADM
-  in->adm=SphP[i].adm
+  in->adm=P[i].adm
 #endif
 }
 

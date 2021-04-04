@@ -328,7 +328,7 @@ void fill_write_buffer(enum iofields blocknr, int *startindex, int pc, int type)
             for(n = 0; n < pc; pindex++)
                 if(P[pindex].Type == type)
                 {
-                    *ip_int++ = SphP[pindex].adm;
+                    *ip_int++ = P[pindex].adm;
                     n++;
                 }
 #endif
@@ -2031,7 +2031,6 @@ long get_particles_in_block(enum iofields blocknr, int *typelist)
         case IO_RADGAMMA:
         case IO_EDDINGTON_TENSOR:
         case IO_U:
-	case IO_ADM:
         case IO_RHO:
         case IO_NE:
         case IO_NH:
@@ -2094,6 +2093,11 @@ long get_particles_in_block(enum iofields blocknr, int *typelist)
         case IO_CHIMES_FLUX_ION:
             for(i = 1; i < 6; i++) {typelist[i] = 0;}
             return ngas;
+            break;
+
+        case IO_ADM:
+            for(i = 0; i < 6; i++) {if(i != 0 && i != 4) {typelist[i] = 0;}}
+            return ngas + nstars;
             break;
 
         case IO_AGE:

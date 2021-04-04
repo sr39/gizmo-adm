@@ -119,7 +119,7 @@ int ngb_treefind_pairs_threads_adm(MyDouble searchcenter[3], int adm_type, MyFlo
 #include "system/ngb_codeblock_before_condition.h"
     if(P[p].Type > 0) continue; // skip particles with non-gas types
     if(P[p].Mass <= 0) continue; // skip zero-mass particles
-    if(SphP[p].adm != adm_type) continue; // skip particles that aren't the same ADM type
+    if(P[p].adm != adm_type) continue; // skip particles that aren't the same ADM type
 #define SEARCHBOTHWAYS 1 // need neighbors that can -mutually- see one another, not just single-directional searching here
 #include "system/ngb_codeblock_after_condition_threaded.h"
 #undef SEARCHBOTHWAYS // must be undefined after code block inserted, or compiler will crash
@@ -147,7 +147,7 @@ int ngb_treefind_variable_threads_adm(MyDouble searchcenter[3], int adm_type,  M
 #include "system/ngb_codeblock_before_condition.h"
     if(P[p].Type > 0) continue; // skip particles with non-gas types
     if(P[p].Mass <= 0) continue; // skip zero-mass particles
-    if(SphP[p].adm != adm_type) continue; // skip particles that aren't the same ADM type
+    if(P[p].adm != adm_type) continue; // skip particles that aren't the same ADM type
 #define SEARCHBOTHWAYS 0 // only need neighbors inside of search radius, not particles 'looking at' primary
 #include "system/ngb_codeblock_after_condition_threaded.h"
 #undef SEARCHBOTHWAYS

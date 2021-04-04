@@ -2152,6 +2152,9 @@ extern ALIGN(32) struct particle_data
     MyFloat OldJerk[3];
     short int AccretedThisTimestep;     /*!< flag to decide whether to stick with the KDK step for stability reasons, e.g. when actively accreting */
 #endif
+#ifdef ADM
+    int adm;/*!< adm particle type */
+#endif
 #ifdef COUNT_MASS_IN_GRAVTREE
     MyFloat TreeMass;  /*!< Mass seen by the particle as it sums up the gravitational force from the tree - should be equal to total mass, a useful debug diagnostic  */
 #endif
@@ -2483,9 +2486,6 @@ extern struct sph_particle_data
 #endif
 
 
-#ifdef ADM
-    int adm;/*!< adm particle type */
-#endif
 #ifdef SUPER_TIMESTEP_DIFFUSION
     MyDouble Super_Timestep_Dt_Explicit; /*!< records the explicit step being used to scale the sub-steps for the super-stepping */
     int Super_Timestep_j; /*!< records which sub-step if the super-stepping cycle the particle is in [needed for adaptive steps] */

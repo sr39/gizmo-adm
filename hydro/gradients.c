@@ -256,7 +256,7 @@ static inline void particle2in_GasGrad(struct GasGraddata_in *in, int i, int gra
 #endif
 #endif
 #ifdef ADM
-    in->adm = SphP[i].adm;
+    in->adm = P[i].adm;
 #endif
 
     if(SHOULD_I_USE_SPH_GRADIENTS(SphP[i].ConditionNumber)) {in->Mass *= -1;}
