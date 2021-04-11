@@ -32,7 +32,7 @@ velocity_factor = 0.9
 ax = 1.2 # x rescaling
 ay = 1.2 # y-rescaling
 az = 0.8 # z-rescaling
-
+random_seed = 1	# seed to initialise random assignment
 
 def M(r):
     """

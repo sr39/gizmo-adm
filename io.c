@@ -345,7 +345,15 @@ void fill_write_buffer(enum iofields blocknr, int *startindex, int pc, int type)
                     *fp++ = SphP[pindex].grHI;
 #else
                     double u, ne, nh0 = 0, mu = 1, temp, nHeII, nhp, nHe0, nHepp; u = DMAX(All.MinEgySpec, SphP[pindex].InternalEnergy); // needs to be in code units
+#ifdef ADM
+		    if(P[pindex].adm == 0) {
+		        temp = ThermalProperties(u, SphP[pindex].Density * All.cf_a3inv, pindex, &mu, &ne, &nh0, &nhp, &nHe0, &nHeII, &nHepp);
+		    } else {
+			temp = ThermalProperties_adm(u, SphP[pindex].Density * All.cf_a3inv, pindex, &mu, &ne, &nh0, &nhp, &nHe0, &nHeII, &nHepp);
+		    } 
+#else 
                     temp = ThermalProperties(u, SphP[pindex].Density * All.cf_a3inv, pindex, &mu, &ne, &nh0, &nhp, &nHe0, &nHeII, &nHepp);
+#endif
                     *fp++ = (MyOutputFloat) nh0;
 #endif
                     n++;
@@ -845,7 +853,15 @@ void fill_write_buffer(enum iofields blocknr, int *startindex, int pc, int type)
                     double ne = SphP[pindex].Ne;
                     /* get cooling time */
                     u = SphP[pindex].InternalEnergyPred;
-                    tcool = GetCoolingTime(u, SphP[pindex].Density * All.cf_a3inv, ne, pindex);
+#ifdef ADM
+		    if(P[pindex].adm == 0) {
+                        tcool = GetCoolingTime(u, SphP[pindex].Density * All.cf_a3inv, ne, pindex);
+		    }  else  {
+			tcool = GetCoolingTime_adm(u, SphP[pindex].Density * All.cf_a3inv, ne, pindex);
+		    }
+#else
+		    tcool = GetCoolingTime(u, SphP[pindex].Density * All.cf_a3inv, ne, pindex);
+#endif
                     /* convert cooling time with current thermal energy to du/dt */
                     if(tcool != 0)
                         *fp++ = u / tcool;

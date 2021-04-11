@@ -95,6 +95,9 @@ void init(void)
 
 
 #if defined(COOLING) && !defined(FLAG_NOT_IN_PUBLIC_CODE)
+#ifdef ADM
+    IonizeParams_adm();
+#endif
     IonizeParams();
 #endif
 

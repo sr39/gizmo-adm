@@ -221,6 +221,9 @@ void set_non_standard_physics_for_current_time(void)
 {
 #if defined(COOLING) && !defined(FLAG_NOT_IN_PUBLIC_CODE)
     /* set UV background for the current time */
+#ifdef ADM
+    IonizeParams_adm();
+#endif
     IonizeParams();
 #endif
 

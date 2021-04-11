@@ -578,6 +578,10 @@ void gravity_tree(void);
 void hydro_force(void);
 void init(void);
 void do_the_cooling_for_particle(int i);
+#ifdef ADM
+void do_the_cooling_for_particle_adm(int i);
+double get_equilibrium_dust_temperature_estimate_adm(int i, double shielding_factor_for_exgalbg);
+#endif
 double get_equilibrium_dust_temperature_estimate(int i, double shielding_factor_for_exgalbg);
 void apply_pm_hires_region_clipping_selection(int i);
 double get_starformation_rate(int i);

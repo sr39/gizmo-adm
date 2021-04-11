@@ -3,7 +3,6 @@ void output_compile_time_options(void)
 {
 printf(
 "        USE_FFTW3\n"
-"        GALSF\n"
 "        SELFGRAVITY_OFF\n"
 "        GRAVITY_ANALYTIC\n"
 "        ADM\n"

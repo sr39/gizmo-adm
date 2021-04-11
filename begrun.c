@@ -101,6 +101,9 @@ void begrun(void)
   All.Time = All.TimeBegin;
 
 #ifdef COOLING
+#ifdef ADM
+  InitCool_adm();
+#endif
   InitCool();
 #endif
 

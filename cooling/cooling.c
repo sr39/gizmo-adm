@@ -67,7 +67,15 @@ void cooling_parent_routine(void)
     for(j=0;j<N_active;j++)
     {
         i=active_indices[j]; /* actual particle index */
+#ifdef ADM
+	if(P[i].adm == 0) {
+		do_the_cooling_for_particle(i);
+	} else {
+		do_the_cooling_for_particle_adm(i);
+	}
+#else
         do_the_cooling_for_particle(i); /* do the actual cooling */
+#endif
     }
     } /* close parallel block */
     free(active_indices); /* free memory */
