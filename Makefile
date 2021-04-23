@@ -1162,6 +1162,9 @@ endif
 
 ifeq (GALSF,$(findstring GALSF,$(CONFIGVARS)))
 OBJS    += galaxy_sf/sfr_eff.o galaxy_sf/stellar_evolution.o
+ifeq (ADM,$(findstring ADM,$(CONFIGVARS)))
+OBJS    += galaxy_sf/galaxy_sf_adm/sfr_eff_adm.o galaxy_sf/galaxy_sf_adm/stellar_evolution_adm.o
+endif
 endif
 
 ifeq (CBE_INTEGRATOR,$(findstring CBE_INTEGRATOR,$(CONFIGVARS)))

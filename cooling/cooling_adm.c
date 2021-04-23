@@ -33,7 +33,7 @@ cooling. I have not enabled those features for ADM
 
 
 #ifdef COOLING
-
+#ifdef ADM
 /* these are variables of the cooling tables. they are static but this shouldnt be a problem for shared-memory structure because
     they are only defined once in a global operation, then locked for particle-by-particle operations */
 /* requires the cooling table TREECOOL, which is included in the GIZMO source in the cooling directory */
@@ -1634,5 +1634,5 @@ double return_uvb_shieldfac_adm(int target, double gamma_12, double nHcgs, doubl
 }
 
 
-
-#endif
+#endif //ADM
+#endif // COOLING

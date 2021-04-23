@@ -53,8 +53,22 @@ void determine_where_SNe_occur(void)
         if(star_age<=0) {continue;} // unphysical age, no events
         // now use a calculation of mechanical event rates to determine where/when the events actually occur //
         npossible++;
-        double RSNe = mechanical_fb_calculate_eventrates(i,dt);
-        rmean += RSNe; ptotal += RSNe * (P[i].Mass*UNIT_MASS_IN_SOLAR) * (dt*UNIT_TIME_IN_MYR);
+#ifdef ADM
+    double RSNe; //initialise particle as non ADM. We will update this if need be.
+    if((P[i].Type == 4)) { // if the particle is generic star
+        if(P[i].adm != 0) {  // if the particle is ADM
+            RSNe = mechanical_fb_calculate_eventrates_adm(i,dt);
+        } else {  // if the particle is not ADM
+            RSNe = mechanical_fb_calculate_eventrates(i,dt);
+        }
+    } else {  // if the particle is neither gas nor star
+            RSNe = mechanical_fb_calculate_eventrates(i,dt);
+    }
+#else 
+    double RSNe = mechanical_fb_calculate_eventrates(i,dt);
+#endif
+	rmean += RSNe;
+	ptotal += RSNe * (P[i].Mass*UNIT_MASS_IN_SOLAR) * (dt*UNIT_TIME_IN_MYR);
 #ifdef GALSF_SFR_IMF_SAMPLING
         if(P[i].IMF_NumMassiveStars>0) {P[i].IMF_NumMassiveStars=DMAX(0,P[i].IMF_NumMassiveStars-P[i].SNe_ThisTimeStep);} // lose an O-star for every SNe //
 #endif
@@ -113,7 +127,20 @@ void particle2in_addFB(struct addFB_evaluate_data_in_ *in, int i, int loop_itera
     in->Msne = 0; in->unit_mom_SNe = 0; in->SNe_v_ejecta = 0;
     if((P[i].DensAroundStar <= 0)||(P[i].Mass == 0)) {return;} // events not possible [catch for mass->0]
     if(loop_iteration < 0) {in->Msne=P[i].Mass; in->unit_mom_SNe=1.e-4; in->SNe_v_ejecta=1.0e-4; return;} // weighting loop
+#ifdef ADM
+    in->adm = 0; //initialise particle as non ADM. We will update this if need be.
+    if((P[i].Type == 0)||(P[i].Type == 4)) { // if the particle is gas or a star
+	if(P[i].adm != 0) {  // if the particle is ADM
+	    particle2in_addFB_fromstars_adm(in,i,loop_iteration);
+	} else {  // if the particle is not ADM
+	    particle2in_addFB_fromstars(in,i,loop_iteration);
+	}  
+    } else {  // if the particle is neither gas nor star
+	    particle2in_addFB_fromstars(in,i,loop_iteration);
+    }
+#else	    
     particle2in_addFB_fromstars(in,i,loop_iteration); // subroutine that actually deals with the assignment of feedback properties
+#endif
     in->unit_mom_SNe = in->Msne * in->SNe_v_ejecta;
 }
 
@@ -195,7 +222,11 @@ int addFB_evaluate(int target, int mode, int *exportflag, int *exportnodecount, 
     {
         while(startnode >= 0)
         {
+#ifdef ADM
+	    numngb_inbox = ngb_treefind_pairs_threads_adm(local.Pos, local.adm, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
             numngb_inbox = ngb_treefind_pairs_threads(local.Pos, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             if(numngb_inbox < 0) {return -1;}
 
             E_coupled = dP_sum = dP_boost_sum = 0;
@@ -513,7 +544,11 @@ int addFB_evaluate(int target, int mode, int *exportflag, int *exportnodecount, 
     {
         while(startnode >= 0)
         {
+#ifdef ADM
+            numngb_inbox = ngb_treefind_pairs_threads_adm(local.Pos, local.adm, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#else
             numngb_inbox = ngb_treefind_pairs_threads(local.Pos, local.Hsml, target, &startnode, mode, exportflag, exportnodecount, exportindex, ngblist);
+#endif
             if(numngb_inbox < 0) {return -1;}
 
             E_coupled = dP_sum = dP_boost_sum = 0;

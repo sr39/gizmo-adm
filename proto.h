@@ -476,6 +476,9 @@ struct addFB_evaluate_data_in_
 #ifdef GALSF_FB_MECHANICAL
     MyFloat Area_weighted_sum[AREA_WEIGHTED_SUM_ELEMENTS];
 #endif
+#ifdef ADM
+    int adm;
+#endif
 #ifdef METALS
     MyDouble yields[NUM_METAL_SPECIES];
 #endif
@@ -485,6 +488,11 @@ struct addFB_evaluate_data_in_
 
 void particle2in_addFB_fromstars(struct addFB_evaluate_data_in_ *in, int i, int fb_loop_iteration);
 double mechanical_fb_calculate_eventrates(int i, double dt);
+#ifdef ADM
+void particle2in_addFB_fromstars_adm(struct addFB_evaluate_data_in_ *in, int i, int fb_loop_iteration);
+double mechanical_fb_calculate_eventrates_adm(int i, double dt);
+#endif
+
 #endif
 
 #if defined(FLAG_NOT_IN_PUBLIC_CODE) || defined(SINGLE_STAR_FB_WINDS) || defined(SINGLE_STAR_FB_RAD) || defined(SINGLE_STAR_FB_SNE)
@@ -581,6 +589,7 @@ void do_the_cooling_for_particle(int i);
 #ifdef ADM
 void do_the_cooling_for_particle_adm(int i);
 double get_equilibrium_dust_temperature_estimate_adm(int i, double shielding_factor_for_exgalbg);
+double get_starformation_rate_adm(int i);
 #endif
 double get_equilibrium_dust_temperature_estimate(int i, double shielding_factor_for_exgalbg);
 void apply_pm_hires_region_clipping_selection(int i);
